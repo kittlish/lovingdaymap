@@ -105,10 +105,18 @@ map.on('load', function(loaded) {
 });
 const slider = document.getElementById('slider');
 const sliderLabel = document.getElementById('active-year');
+const updateYears = [1779, 1780, 1880, 1881, 1882, 1883, 1886, 1887, 1947, 1948, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1961, 1962, 1963, 1964, 1965, 1966, 1967];
+let prevUpdate = 1;
 slider.addEventListener('input', function(e) {
   const year = parseInt(slider.value);
-  map.setFilter('lovingday', ['<=', ['number', ['get', 'lovingday']], year]);
   sliderLabel.innerText = year;
+  if (year == updateYears[prevUpdate-1]) {
+    map.setFilter('lovingday', ['<=', ['number', ['get', 'lovingday']], year]);
+    prevUpdate--;
+  } else if (year == updateYears[prevUpdate+1]) {
+    map.setFilter('lovingday', ['<=', ['number', ['get', 'lovingday']], year]);
+    prevUpdate++;
+  }
 });
 //
 </script>
